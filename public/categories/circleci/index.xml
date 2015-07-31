@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Circleci on iori Blog</title>
+    <link>http://localhost:1313/categories/circleci/</link>
+    <description>Recent content in Circleci on iori Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <lastBuildDate>Fri, 17 Apr 2015 09:00:00 +0900</lastBuildDate>
+    <atom:link href="http://localhost:1313/categories/circleci/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>HugoとCircleCIでGitHub PagesにBlog公開してみたら超簡単だった</title>
+      <link>http://localhost:1313/post/first/</link>
+      <pubDate>Fri, 17 Apr 2015 09:00:00 +0900</pubDate>
+      
+      <guid>http://localhost:1313/post/first/</guid>
+      <description>
+
+&lt;h1 id=&#34;hoge:dbc170fd146098a3a711d486d437e1ff&#34;&gt;hoge&lt;/h1&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
