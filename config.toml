@@ -1,0 +1,24 @@
+baseurl = "http://iori.github.io"
+languageCode = "ja"
+title = "iori Blog"
+theme = "hyde-x"
+MetaDataFormat = "toml"
+disqusShortname = "hogehoge"
+
+[author]
+  name = "Iori Nishizawa"
+
+[permalinks]
+  post = "/entry/:slug/"
+
+[indexes]
+  category = "categories"
+
+[params]
+  theme = "theme-base-0d"
+  highlight = "sunburst"
+  googleAnalytics = "UA-00000000-1"
+
+  facebook = "https://www.facebook.com/hogehoge"
+  twitter = "https://twitter.com/hogehoge"
+  github = "https://github.com/hogehoge"
