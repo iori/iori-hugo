@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<meta name="description" content="Simple minimalist theme">
+<meta name="keywords" content="minimalist,blog,goa,hugo,developer">
+
+<base href="https://iori.github.io/">
+
+<title>How to become a Hacker.</title>
+
+<meta name="generator" content="Hugo 0.17" />
+
+
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400|Roboto+Slab:400,700|Roboto:300,300i,400,400i,500,500i,700,700i">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://iori.github.io/css/main.css">
+
+
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="theme-color" content="#ffffff">
+
+</head>
+<body lang="ja">
+<div class="container">
+
+
+<header class="row text-left title">
+  <h1 class="title">Hugo on GitHub Pages.</h1>
+</header>
+<section id="category-pane" class="row meta">
+  
+  <div class="col-md-12">
+    <h6 class="text-left meta">
+      PUBLISHED ON APR 17, 17007 
+      
+      
+      — 
+      
+      
+      <a class="meta" href="/categories/development">DEVELOPMENT</a>, 
+      
+      <a class="meta" href="/categories/github-pages">GITHUB PAGES</a>, 
+      
+      <a class="meta" href="/categories/hugo">HUGO</a>
+      
+      
+    </h6>
+  </div>
+  
+</section>
+<section id="content-pane" class="row">
+  <div class="col-md-12 text-justify content">
+    
+
+<p>hugoでGitHubPagesにBlogを開設する手順のまとめ。</p>
+
+<h2 id="github-pages-hugo">GitHub Pages &amp; Hugo</h2>
+
+<p>GitHub Pagesは <strong>自分のアカウント名.github.io</strong> というURLで静的サイトを公開できるサービス。無料！やったね！</p>
+
+<p>今回はhugoというGo言語製の静的サイトジェネレーターを使って、GitHub Pagesに静的サイトを構築します。hugoでは</p>
+
+<ul>
+<li>テーマの選択</li>
+<li>MarkDownでの記事の記述</li>
+</ul>
+
+<p>が出来ます。</p>
+
+<h2 id="構築手順">構築手順</h2>
+
+<p>今回は</p>
+
+<ol>
+<li>hugoのインストール</li>
+<li>hugoでテンプレートを作成する</li>
+<li>テーマを使用する</li>
+<li>記事を作成する</li>
+<li>slugを利用してURLを変更する</li>
+<li>localで表示を確認する</li>
+<li>deployする</li>
+</ol>
+
+<p>までやります</p>
+
+<h3 id="1-hugoのインストール">1. hugoのインストール</h3>
+
+<p>macの場合は</p>
+
+<pre><code class="language-bash">$ brew install hugo
+</code></pre>
+
+<p>でインストール出来ます。他のOSの方は、<a href="https://github.com/spf13/hugo#choose-how-to-install">こちら</a>を御覧ください。</p>
+
+<h3 id="2-hugoでテンプレートを作成する">2. hugoでテンプレートを作成する</h3>
+
+<pre><code class="language-bash">$ hugo new site site_name
+</code></pre>
+
+<p>で作成されます。</p>
+
+<h4 id="リポジトリの作成">リポジトリの作成</h4>
+
+<p>次にGitHubで</p>
+
+<ul>
+<li>hugoのテンプレートを管理するリポジトリの作成(これは名前は何でもOK)</li>
+<li>あなたのアカウント名.github.io というリポジトリの作成</li>
+</ul>
+
+<p>をして下さい。 <strong>アカウント名.github.io</strong> リポジトリではhugoで生成した静的なファイルをpushします。hugoで作成したプロジェクトは別のリポジトリで管理するためです。リポジトリの作成が完了したら</p>
+
+<pre><code class="language-bash">$ git init
+$ echo public/ &gt;&gt; .gitignore # hugoが生成する静的なファイルはこのリポジトリでは管理しない
+$ git remote add git@github.com:あなたのアカウント名/テンプレート管理用のリポジトリ名.git
+$ git add .
+$ git commit -am 'first commit'
+</code></pre>
+
+<p>をして下さい。</p>
+
+<h3 id="3-テーマを使用する">3. テーマを使用する</h3>
+
+<p><a href="https://github.com/spf13/hugoThemes/#theme-list">https://github.com/spf13/hugoThemes/#theme-list</a>
+ここから利用したいテーマを探して下さい。今回は <code>hyde-x</code>を利用します。hyde-xのリポジトリに移り、SSH Clone URLをコピーし</p>
+
+<pre><code class="language-bash">$ git submodule add git@github.com:zyro/hyde-x.git themes/hyde-x
+</code></pre>
+
+<p>します。これでthemesにhyde-xがコピーされ、submoduleが登録されます。<code>config.toml</code>に<code>theme = &quot;hyde-x&quot;</code>を追記して下さい。追記したらまた<code>git commit</code>しておきましょう。</p>
+
+<h3 id="4-記事を作成する">4. 記事を作成する</h3>
+
+<p>次は実際に記事を作成して見ましょう。hugoでは</p>
+
+<pre><code class="language-bash">$ hugo new post/example.md
+</code></pre>
+
+<p>で記事を作成出来ます。ファイルは<code>content/</code>に生成されます。記事の内容は</p>
+
+<pre><code>+++
+categories = []
+date = &quot;2015-07-31T14:52:15+09:00&quot;
+description = &quot;&quot;
+keywords = []
+title = &quot;example&quot;
+
++++
+</code></pre>
+
+<p>のようになります。<code>+++</code>の下からMardDownで記事を書くことが出来ます。<code>+++</code>内は設定です。</p>
+
+<h3 id="5-slugを利用してurlを変更する">5. slugを利用してURLを変更する</h3>
+
+<p>slugを指定してURLを変更することが出来ます。これはファイル名がURLになるのを防ぐことができます。<code>example.md</code>の<code>+++</code>内に</p>
+
+<pre><code>slug = &quot;hoge&quot;
+</code></pre>
+
+<p>と追記して下さい。また、<code>config.toml</code>に</p>
+
+<pre><code>[permalinks]
+  post = &quot;/entry/:slug/&quot;
+</code></pre>
+
+<p>と追記して下さい。これで<code>content/post/</code>以下のファイルは<code>/entry/(ファイル名|slugで指定した文字列</code>がURLとなります。</p>
+
+<h3 id="6-localで表示を確認する">6. localで表示を確認する</h3>
+
+<p>ここまで来たらもう少しです。次のコマンドを実行して下さい。</p>
+
+<pre><code class="language-bash">$ hugo server -w
+</code></pre>
+
+<p>これで<code>localhost:1313</code>でHOMEにアクセス出来、<code>example</code>というタイトルの<code>localhost:1313/entry/hoge</code>という記事も生成されている筈です。</p>
+
+<p><code>-w</code>は、記事が保存されたら自動的にブラウザの内容を更新してくれるので便利です。ここまでで<code>git commit</code>しておきましょう。</p>
+
+<h3 id="deployする">deployする</h3>
+
+<p>deployするにはまず、<code>public/</code>をgitで新たに管理します。</p>
+
+<pre><code class="language-bash">$ cd public
+$ git init
+$ git remote add git@github.com:あなたのアカウント名/あなたのアカウント名.git
+</code></pre>
+
+<p>このようにして下さい。これでpublicが<code>アカウント名.github.io</code>というリポジトリで管理されます。</p>
+
+<p>hugoではdeploy用のコマンドが用意されていないので、rootに以下の<code>deploy.sh</code>を作成します</p>
+
+<pre><code class="language-sh">#deploy.shの中身
+#!/bin/bash
+
+echo -e &quot;\033[0;32mDeploying updates to GitHub...\033[0m&quot;
+
+# Build the project. 
+hugo
+
+# Go To Public folder
+cd public
+
+# Add changes to git.
+git add -A
+
+# Commit changes.
+msg=&quot;rebuilding site `date`&quot;
+if [ $# -eq 1 ]
+  then msg=&quot;$1&quot;
+fi
+git commit -m &quot;$msg&quot;
+
+#Push source and build repos.
+git push origin master
+
+# Come Back
+cd ..
+</code></pre>
+
+<p><code>deploy.sh</code>を作成したら、<code>git commit</code>しておきましょう。最後に、</p>
+
+<pre><code class="language-bash">$ ./deploy.sh
+</code></pre>
+
+<p>をすると、自動的に<code>public/</code>に静的ファイルを生成し、githubのリポジトリにpushしてくれます。これで <code>貴方のアカウント名.github.io</code>でサイトが構築され実際にアクセスすることが出来ます。</p>
+
+  </div>
+</section>
+<section id="tag-pane" class="row meta">
+  
+  <div class="col-md-12">
+    <h6 class="text-right meta">
+      
+
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'iori';
+    var disqus_identifier = 'https:\/\/iori.github.io\/post\/Hugo%20on%20GitHub%20Pages\/';
+    var disqus_title = 'Hugo on GitHub Pages.';
+    var disqus_url = 'https:\/\/iori.github.io\/post\/Hugo%20on%20GitHub%20Pages\/';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+<section id="menu-pane" class="row menu text-center">
+  
+  
+  
+  
+  
+  <h4 class="text-center"><a class="menu-item" href="https://iori.github.io/">home</a></h4>
+</section>
+
+
+
+<footer class="row text-center footer">
+  <hr />
+  
+  <h6 class="text-center copyright">© 2015. Iori Nishizawa. <a href="http://creativecommons.org/licenses/by/3.0/">Some Rights Reserved</a>.</h6>
+  
+  <h6 class="text-center powered">Powered by <a href="https://gohugo.io/">Hugo</a> &amp; <a href="https://github.com/shenoybr/hugo-goa">Goa</a>.</h6>
+  
+  
+</footer>
+
+</div>
+
+
+
+
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'XYZ', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
+
+

@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>How to become a Hacker.</title>
+    <link>https://iori.github.io/categories/hugo/index.xml</link>
+    <description>Recent content on How to become a Hacker.</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <atom:link href="https://iori.github.io/categories/hugo/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Hugo on GitHub Pages.</title>
+      <link>https://iori.github.io/post/Hugo%20on%20GitHub%20Pages/</link>
+      <pubDate>Fri, 17 Apr 2015 09:00:00 +0900</pubDate>
+      
+      <guid>https://iori.github.io/post/Hugo%20on%20GitHub%20Pages/</guid>
+      <description>
+
+&lt;p&gt;hugoでGitHubPagesにBlogを開設する手順のまとめ。&lt;/p&gt;
+
+&lt;h2 id=&#34;github-pages-hugo&#34;&gt;GitHub Pages &amp;amp; Hugo&lt;/h2&gt;
+
+&lt;p&gt;GitHub Pagesは &lt;strong&gt;自分のアカウント名.github.io&lt;/strong&gt; というURLで静的サイトを公開できるサービス。無料！やったね！&lt;/p&gt;
+
+&lt;p&gt;今回はhugoというGo言語製の静的サイトジェネレーターを使って、GitHub Pagesに静的サイトを構築します。hugoでは&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;テーマの選択&lt;/li&gt;
+&lt;li&gt;MarkDownでの記事の記述&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;が出来ます。&lt;/p&gt;
+
+&lt;h2 id=&#34;構築手順&#34;&gt;構築手順&lt;/h2&gt;
+
+&lt;p&gt;今回は&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;hugoのインストール&lt;/li&gt;
+&lt;li&gt;hugoでテンプレートを作成する&lt;/li&gt;
+&lt;li&gt;テーマを使用する&lt;/li&gt;
+&lt;li&gt;記事を作成する&lt;/li&gt;
+&lt;li&gt;slugを利用してURLを変更する&lt;/li&gt;
+&lt;li&gt;localで表示を確認する&lt;/li&gt;
+&lt;li&gt;deployする&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;までやります&lt;/p&gt;
+
+&lt;h3 id=&#34;1-hugoのインストール&#34;&gt;1. hugoのインストール&lt;/h3&gt;
+
+&lt;p&gt;macの場合は&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ brew install hugo
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;でインストール出来ます。他のOSの方は、&lt;a href=&#34;https://github.com/spf13/hugo#choose-how-to-install&#34;&gt;こちら&lt;/a&gt;を御覧ください。&lt;/p&gt;
+
+&lt;h3 id=&#34;2-hugoでテンプレートを作成する&#34;&gt;2. hugoでテンプレートを作成する&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ hugo new site site_name
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;で作成されます。&lt;/p&gt;
+
+&lt;h4 id=&#34;リポジトリの作成&#34;&gt;リポジトリの作成&lt;/h4&gt;
+
+&lt;p&gt;次にGitHubで&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;hugoのテンプレートを管理するリポジトリの作成(これは名前は何でもOK)&lt;/li&gt;
+&lt;li&gt;あなたのアカウント名.github.io というリポジトリの作成&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;をして下さい。 &lt;strong&gt;アカウント名.github.io&lt;/strong&gt; リポジトリではhugoで生成した静的なファイルをpushします。hugoで作成したプロジェクトは別のリポジトリで管理するためです。リポジトリの作成が完了したら&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ git init
+$ echo public/ &amp;gt;&amp;gt; .gitignore # hugoが生成する静的なファイルはこのリポジトリでは管理しない
+$ git remote add git@github.com:あなたのアカウント名/テンプレート管理用のリポジトリ名.git
+$ git add .
+$ git commit -am &#39;first commit&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;をして下さい。&lt;/p&gt;
+
+&lt;h3 id=&#34;3-テーマを使用する&#34;&gt;3. テーマを使用する&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/spf13/hugoThemes/#theme-list&#34;&gt;https://github.com/spf13/hugoThemes/#theme-list&lt;/a&gt;
+ここから利用したいテーマを探して下さい。今回は &lt;code&gt;hyde-x&lt;/code&gt;を利用します。hyde-xのリポジトリに移り、SSH Clone URLをコピーし&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ git submodule add git@github.com:zyro/hyde-x.git themes/hyde-x
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;します。これでthemesにhyde-xがコピーされ、submoduleが登録されます。&lt;code&gt;config.toml&lt;/code&gt;に&lt;code&gt;theme = &amp;quot;hyde-x&amp;quot;&lt;/code&gt;を追記して下さい。追記したらまた&lt;code&gt;git commit&lt;/code&gt;しておきましょう。&lt;/p&gt;
+
+&lt;h3 id=&#34;4-記事を作成する&#34;&gt;4. 記事を作成する&lt;/h3&gt;
+
+&lt;p&gt;次は実際に記事を作成して見ましょう。hugoでは&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ hugo new post/example.md
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;で記事を作成出来ます。ファイルは&lt;code&gt;content/&lt;/code&gt;に生成されます。記事の内容は&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;+++
+categories = []
+date = &amp;quot;2015-07-31T14:52:15+09:00&amp;quot;
+description = &amp;quot;&amp;quot;
+keywords = []
+title = &amp;quot;example&amp;quot;
+
++++
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;のようになります。&lt;code&gt;+++&lt;/code&gt;の下からMardDownで記事を書くことが出来ます。&lt;code&gt;+++&lt;/code&gt;内は設定です。&lt;/p&gt;
+
+&lt;h3 id=&#34;5-slugを利用してurlを変更する&#34;&gt;5. slugを利用してURLを変更する&lt;/h3&gt;
+
+&lt;p&gt;slugを指定してURLを変更することが出来ます。これはファイル名がURLになるのを防ぐことができます。&lt;code&gt;example.md&lt;/code&gt;の&lt;code&gt;+++&lt;/code&gt;内に&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;slug = &amp;quot;hoge&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;と追記して下さい。また、&lt;code&gt;config.toml&lt;/code&gt;に&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[permalinks]
+  post = &amp;quot;/entry/:slug/&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;と追記して下さい。これで&lt;code&gt;content/post/&lt;/code&gt;以下のファイルは&lt;code&gt;/entry/(ファイル名|slugで指定した文字列&lt;/code&gt;がURLとなります。&lt;/p&gt;
+
+&lt;h3 id=&#34;6-localで表示を確認する&#34;&gt;6. localで表示を確認する&lt;/h3&gt;
+
+&lt;p&gt;ここまで来たらもう少しです。次のコマンドを実行して下さい。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ hugo server -w
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;これで&lt;code&gt;localhost:1313&lt;/code&gt;でHOMEにアクセス出来、&lt;code&gt;example&lt;/code&gt;というタイトルの&lt;code&gt;localhost:1313/entry/hoge&lt;/code&gt;という記事も生成されている筈です。&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;-w&lt;/code&gt;は、記事が保存されたら自動的にブラウザの内容を更新してくれるので便利です。ここまでで&lt;code&gt;git commit&lt;/code&gt;しておきましょう。&lt;/p&gt;
+
+&lt;h3 id=&#34;deployする&#34;&gt;deployする&lt;/h3&gt;
+
+&lt;p&gt;deployするにはまず、&lt;code&gt;public/&lt;/code&gt;をgitで新たに管理します。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ cd public
+$ git init
+$ git remote add git@github.com:あなたのアカウント名/あなたのアカウント名.git
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;このようにして下さい。これでpublicが&lt;code&gt;アカウント名.github.io&lt;/code&gt;というリポジトリで管理されます。&lt;/p&gt;
+
+&lt;p&gt;hugoではdeploy用のコマンドが用意されていないので、rootに以下の&lt;code&gt;deploy.sh&lt;/code&gt;を作成します&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;#deploy.shの中身
+#!/bin/bash
+
+echo -e &amp;quot;\033[0;32mDeploying updates to GitHub...\033[0m&amp;quot;
+
+# Build the project. 
+hugo
+
+# Go To Public folder
+cd public
+
+# Add changes to git.
+git add -A
+
+# Commit changes.
+msg=&amp;quot;rebuilding site `date`&amp;quot;
+if [ $# -eq 1 ]
+  then msg=&amp;quot;$1&amp;quot;
+fi
+git commit -m &amp;quot;$msg&amp;quot;
+
+#Push source and build repos.
+git push origin master
+
+# Come Back
+cd ..
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;deploy.sh&lt;/code&gt;を作成したら、&lt;code&gt;git commit&lt;/code&gt;しておきましょう。最後に、&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ ./deploy.sh
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;をすると、自動的に&lt;code&gt;public/&lt;/code&gt;に静的ファイルを生成し、githubのリポジトリにpushしてくれます。これで &lt;code&gt;貴方のアカウント名.github.io&lt;/code&gt;でサイトが構築され実際にアクセスすることが出来ます。&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
