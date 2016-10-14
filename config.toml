@@ -1,24 +1,56 @@
-baseurl = "http://iori.github.io"
+## Basic Configuration
+
+baseurl = "https://iori.github.io/" 
+builddrafts = false
+canonifyurls = false
 languageCode = "ja"
-title = "iori Blog"
-theme = "hyde-x"
-MetaDataFormat = "toml"
-disqusShortname = "hogehoge"
 
-[author]
-  name = "Iori Nishizawa"
+contentdir = "content"
+layoutdir = "layouts"
+publishdir = "public"
 
-[permalinks]
-  post = "/entry/:slug/"
+author = "Iori Nishizawa"
+title = "How to become a Hacker."
 
-[indexes]
-  category = "categories"
+theme = "hugo-goa"
 
+## Hugo Built-in Features
+disqusShortname = "iori" # Comment out to disable Disqus.
+googleAnalytics = "XYZ"
+enableRobotsTXT = true
+
+## Site Settings
 [params]
-  theme = "theme-base-0d"
-  highlight = "sunburst"
-  googleAnalytics = "UA-00000000-1"
+author = "Iori Nishizawa"
+intro = "The Pragmatic Programmer"
+description = "<h3>Languages</h3><h4 class='description'>Ruby, Ruby on Rails, CommonLisp, Scheme, R, Python, Perl, JavaScript, CoffeeScript, AngularJS</h4><h3>Other Skills</h3><h4 class='description'>AWS, Heroku, PostgreSQL, Ubuntu, ArchLinux, Solr, SVM, Scrum Anti Certification, TDD, BDD, Agile</h4>"
+authorImage = "headshot.jpg"
+dateFormat = "Jan 2, 2006"
 
-  facebook = "https://www.facebook.com/hogehoge"
-  twitter = "https://twitter.com/hogehoge"
-  github = "https://github.com/hogehoge"
+## Site Meta Settings
+[params.meta]
+description = "Simple minimalist theme"
+keywords = "minimalist,blog,goa,hugo,developer"
+
+## Social Accounts
+[params.social]
+github = "iori"
+email = "iori.nishizawa@gmail.com"
+
+## Extras
+[params.extra]
+copyright = "© 2015. Iori Nishizawa. [Some Rights Reserved](http://creativecommons.org/licenses/by/3.0/)." 
+poweredBy = true
+hightlightJS = true
+
+## Main Menu
+[[menu.main]]
+    name = "2ez.io"
+    weight = 100
+    identifier = "site"
+    url = "https://www.2ez.io"
+[[menu.main]]
+    name = "blog"
+    weight = 100
+    identifier = "blog"
+    url = "http://kouyatakao.hatenablog.com"
